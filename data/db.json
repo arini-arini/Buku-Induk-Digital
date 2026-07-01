@@ -1,0 +1,196 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "username": "admin",
+      "passwordHash": "$2b$10$S.kZlUU/DJhv3SeSP.xVOOVa4jskIGDpSQwc2OA0J8SGP4XJDZxNC",
+      "role": "admin",
+      "name": "Admin Operator Utama"
+    },
+    {
+      "id": "user-t-1",
+      "username": "198503122010011003",
+      "passwordHash": "$2b$10$a82W.zU87Jzsu8C6kN.mWeZCmoqiKvz0iknZL6DvE0eAkukKq72Ji",
+      "role": "guru",
+      "name": "Budi Santoso, S.Pd.",
+      "classId": "1-A"
+    },
+    {
+      "id": "user-t-2",
+      "username": "198904152015022001",
+      "passwordHash": "$2b$10$a82W.zU87Jzsu8C6kN.mWeZCmoqiKvz0iknZL6DvE0eAkukKq72Ji",
+      "role": "guru",
+      "name": "Siti Rahma, S.Pd.",
+      "classId": "2-B"
+    },
+    {
+      "id": "user-s-1",
+      "username": "0145239201",
+      "passwordHash": "$2b$10$bHqDvwrbdwPlIMHKjlgrIecybRvfvceg08QFGX4uDXiAPcDuhHIMK",
+      "role": "siswa",
+      "name": "Ahmad Fauzi",
+      "classId": "1-A"
+    },
+    {
+      "id": "user-s-2",
+      "username": "0145239202",
+      "passwordHash": "$2b$10$bHqDvwrbdwPlIMHKjlgrIecybRvfvceg08QFGX4uDXiAPcDuhHIMK",
+      "role": "siswa",
+      "name": "Putri Amanda",
+      "classId": "1-A"
+    },
+    {
+      "id": "user-s-3",
+      "username": "0145239203",
+      "passwordHash": "$2b$10$bHqDvwrbdwPlIMHKjlgrIecybRvfvceg08QFGX4uDXiAPcDuhHIMK",
+      "role": "siswa",
+      "name": "Rian Hidayat",
+      "classId": "1-A"
+    },
+    {
+      "id": "user-s-4",
+      "username": "0151122334",
+      "passwordHash": "$2b$10$bHqDvwrbdwPlIMHKjlgrIecybRvfvceg08QFGX4uDXiAPcDuhHIMK",
+      "role": "siswa",
+      "name": "Christian Wijaya",
+      "classId": "2-B"
+    },
+    {
+      "id": "user-s-5",
+      "username": "0151122335",
+      "passwordHash": "$2b$10$bHqDvwrbdwPlIMHKjlgrIecybRvfvceg08QFGX4uDXiAPcDuhHIMK",
+      "role": "siswa",
+      "name": "Ni Made Arianti",
+      "classId": "2-B"
+    }
+  ],
+  "students": [
+    {
+      "id": "s-1",
+      "nis": "12001",
+      "nisn": "0145239201",
+      "namaLengkap": "Ahmad Fauzi",
+      "tempatLahir": "Jakarta",
+      "tanggalLahir": "2015-08-12",
+      "jenisKelamin": "L",
+      "agama": "Islam",
+      "alamat": "Jl. Raya Sungai Bangek, Kel. Balai Gadang, Kec. Koto Tangah, Kota Padang",
+      "namaAyah": "Prasetyo Fauzi",
+      "namaIbu": "Siti Aminah",
+      "nomorHpOrangTua": "081234567890",
+      "kelas": "1-A",
+      "tahunAjaran": "2026/2027",
+      "statusSiswa": "Aktif"
+    },
+    {
+      "id": "s-2",
+      "nis": "12002",
+      "nisn": "0145239202",
+      "namaLengkap": "Putri Amanda",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "2015-11-20",
+      "jenisKelamin": "P",
+      "agama": "Islam",
+      "alamat": "Perumahan Indah Lestari Blok B2 No. 8, Jakarta Pusat",
+      "namaAyah": "Irwan Amanda",
+      "namaIbu": "Lilis Hartati",
+      "nomorHpOrangTua": "085698765432",
+      "kelas": "1-A",
+      "tahunAjaran": "2026/2027",
+      "statusSiswa": "Aktif"
+    },
+    {
+      "id": "s-3",
+      "nis": "12003",
+      "nisn": "0145239203",
+      "namaLengkap": "Rian Hidayat",
+      "tempatLahir": "Surabaya",
+      "tanggalLahir": "2015-05-04",
+      "jenisKelamin": "L",
+      "agama": "Islam",
+      "alamat": "Kost Green Griya No. 12, Senen, Jakarta Pusat",
+      "namaAyah": "Sudirman Hidayat",
+      "namaIbu": "Rahmawati",
+      "nomorHpOrangTua": "081987654321",
+      "kelas": "1-A",
+      "tahunAjaran": "2026/2027",
+      "statusSiswa": "Aktif"
+    },
+    {
+      "id": "s-4",
+      "nis": "12101",
+      "nisn": "0151122334",
+      "namaLengkap": "Christian Wijaya",
+      "tempatLahir": "Semarang",
+      "tanggalLahir": "2014-04-18",
+      "jenisKelamin": "L",
+      "agama": "Kristen",
+      "alamat": "Jl. Diponegoro No. 102, Menteng, Jakarta Pusat",
+      "namaAyah": "Hendry Wijaya",
+      "namaIbu": "Dewi Christiani",
+      "nomorHpOrangTua": "082155443322",
+      "kelas": "2-B",
+      "tahunAjaran": "2026/2027",
+      "statusSiswa": "Aktif"
+    },
+    {
+      "id": "s-5",
+      "nis": "12102",
+      "nisn": "0151122335",
+      "namaLengkap": "Ni Made Arianti",
+      "tempatLahir": "Denpasar",
+      "tanggalLahir": "2014-09-02",
+      "jenisKelamin": "P",
+      "agama": "Hindu",
+      "alamat": "Jl. Hayam Wuruk Gg. IX No. 4, Jakarta Pusat",
+      "namaAyah": "I Ketut Ariawan",
+      "namaIbu": "Ni Luh Putu",
+      "nomorHpOrangTua": "081399887766",
+      "kelas": "2-B",
+      "tahunAjaran": "2026/2027",
+      "statusSiswa": "Aktif"
+    }
+  ],
+  "teachers": [
+    {
+      "id": "t-1",
+      "nip": "198503122010011003",
+      "nama": "Budi Santoso, S.Pd.",
+      "kelasDiampu": "1-A",
+      "username": "198503122010011003"
+    },
+    {
+      "id": "t-2",
+      "nip": "198904152015022001",
+      "nama": "Siti Rahma, S.Pd.",
+      "kelasDiampu": "2-B",
+      "username": "198904152015022001"
+    }
+  ],
+  "reports": [
+    {
+      "id": "rep-1",
+      "siswaId": "s-1",
+      "namaSiswa": "Ahmad Fauzi",
+      "kelas": "1-A",
+      "tahunAjaran": "2026/2027",
+      "semester": "Ganjil",
+      "fileUrl": "data:application/pdf;base64,JVBERi0xLjQKJSDii6YKMSAwIG9iagogIDw8IC9UeXBlIC9DYXRhbG9nIC9QYWdlcyAyIDAgUiA+PgplbmRvYmoKMiAwIG9iagogIDw8IC9UeXBlIC9QYWdlcyAvS2lkcyBbMyAwIFJdIC9Db3VudCAxID4+CmVuZG9iagozIDAgb2JqCiAgPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgNCAwIFIgPj4KZW5kb2JqCjQgMCBvYmoKICA8PCAvTGVuZ3RoIDY4ID4+CnN0cmVhbQogIEJUCiAgICAvRjEgMTIgVGYKICAgIDcwIDcwMCBUZAogICAgKFJhcG9yIFNpZXdhIEFobWFkIEZhdXppIC0gU2VtZXN0ZXIgR2FuanlsKSBUagogIEVUCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDUKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDAwNzAgMDAwMDAgbiAKMDAwMDAwMDEyNSAwMDAwMCBuIAowMDAwMDAwMjEyIDAwMDAwIG4gCnRyYWlsZXIKICA8PCAvU2l6ZSA1IC9Sb290IDEgMCBSID4+CnN0YXJ0eHJlZgogIDM0OQolJUVPRgo=",
+      "fileName": "Rapor_Ahmad_Fauzi_Ganjil_2026.pdf",
+      "keterangan": "Laporan Hasil Belajar Penilaian Tengah Semester (PTS)",
+      "uploadedAt": "2026-07-01T07:15:05.491Z",
+      "uploadedBy": "Budi Santoso, S.Pd."
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-initial",
+      "timestamp": "2026-07-01T07:15:05.491Z",
+      "userId": "system",
+      "username": "system",
+      "role": "admin",
+      "action": "SEED",
+      "details": "Inisialisasi basis data default Sistem Buku Induk Sekolah Dasar."
+    }
+  ]
+}

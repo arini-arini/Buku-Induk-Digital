@@ -1,0 +1,6 @@
+{
+  "name": "Buku Induk SD",
+  "description": "Sistem Informasi Buku Induk Siswa Sekolah Dasar dengan Multi-Role Access (Admin, Guru, Siswa), Manajemen Rapor, dan Import/Export Data.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
