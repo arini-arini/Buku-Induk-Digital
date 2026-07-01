@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Database, Download, Upload, AlertCircle, CheckCircle, RefreshCw, FileWarning } from "lucide-react";
+import { ConfirmDialog } from "./ConfirmDialog";
 
 interface BackupRestoreProps {
   onBackup: () => Promise<any>;
@@ -12,6 +13,18 @@ export default function BackupRestore({ onBackup, onRestore, isDark }: BackupRes
   const [notif, setNotif] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [fileContent, setFileContent] = useState<any | null>(null);
+
+  const [confirmConfig, setConfirmConfig] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    action: () => void;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    action: () => {}
+  });
 
   const triggerNotif = (type: 'success' | 'error', msg: string) => {
     setNotif({ type, msg });
@@ -70,24 +83,30 @@ export default function BackupRestore({ onBackup, onRestore, isDark }: BackupRes
 
   const handleRestoreClick = async () => {
     if (!fileContent) return;
-    if (window.confirm("PERINGATAN! Pemulihan data (Restore) akan menghapus dan mengganti seluruh data yang ada saat ini (Siswa, Guru, Akun, Rapor) dengan data dari berkas cadangan.\n\nApakah Anda yakin ingin melanjutkan?")) {
-      setLoading(true);
-      try {
-        await onRestore(fileContent);
-        triggerNotif('success', "Sistem basis data Buku Induk berhasil dipulihkan secara penuh. Memuat ulang sistem...");
-        setFileContent(null);
-        setFileName("");
-        
-        // Reload system to apply restore changes
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      } catch (err: any) {
-        triggerNotif('error', err.message || "Gagal memulihkan database.");
-      } finally {
-        setLoading(false);
+    setConfirmConfig({
+      isOpen: true,
+      title: "Konfirmasi Restore Data",
+      message: "PERINGATAN! Pemulihan data (Restore) akan menghapus dan mengganti seluruh data yang ada saat ini (Siswa, Guru, Akun, Rapor) dengan data dari berkas cadangan.\n\nApakah Anda yakin ingin melanjutkan?",
+      action: async () => {
+        setLoading(true);
+        try {
+          await onRestore(fileContent);
+          triggerNotif('success', "Sistem basis data Buku Induk berhasil dipulihkan secara penuh. Memuat ulang sistem...");
+          setFileContent(null);
+          setFileName("");
+          
+          // Reload system to apply restore changes
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } catch (err: any) {
+          triggerNotif('error', err.message || "Gagal memulihkan database.");
+        } finally {
+          setLoading(false);
+          setConfirmConfig({ ...confirmConfig, isOpen: false });
+        }
       }
-    }
+    });
   };
 
   return (
@@ -192,6 +211,14 @@ export default function BackupRestore({ onBackup, onRestore, isDark }: BackupRes
         </div>
 
       </div>
+      
+      <ConfirmDialog
+        isOpen={confirmConfig.isOpen}
+        title={confirmConfig.title}
+        message={confirmConfig.message}
+        onConfirm={confirmConfig.action}
+        onCancel={() => setConfirmConfig({ ...confirmConfig, isOpen: false })}
+      />
     </div>
   );
 }

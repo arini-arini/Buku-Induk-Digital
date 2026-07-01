@@ -328,7 +328,7 @@ async function startServer() {
       return res.status(400).json({ error: "Nama pengguna dan kata sandi wajib diisi." });
     }
 
-    const user = db.users.find(u => u.username === username);
+    const user = db.users.find(u => u.username.toLowerCase() === username.toLowerCase());
     if (!user) {
       return res.status(401).json({ error: "Kombinasi nama pengguna atau kata sandi salah." });
     }

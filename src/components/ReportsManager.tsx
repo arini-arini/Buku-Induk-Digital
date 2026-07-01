@@ -18,6 +18,7 @@ import {
   Printer
 } from "lucide-react";
 import { Report, Student, Teacher } from "../types";
+import { ConfirmDialog } from "./ConfirmDialog";
 
 interface ReportsManagerProps {
   students: Student[]; // Students assigned to this teacher's class or current student
@@ -56,6 +57,18 @@ export default function ReportsManager({
   const [activePreview, setActivePreview] = useState<Report | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [notif, setNotif] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
+
+  const [confirmConfig, setConfirmConfig] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    action: () => void;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    action: () => {}
+  });
 
   const triggerNotif = (type: 'success' | 'error', msg: string) => {
     setNotif({ type, msg });
@@ -127,17 +140,23 @@ export default function ReportsManager({
 
   const handleDeleteReport = async (report: Report) => {
     if (!onDelete) return;
-    if (window.confirm(`Apakah Anda yakin ingin menghapus rapor ${report.namaSiswa} semester ${report.semester}?\nTindakan ini permanen.`)) {
-      try {
-        await onDelete(report.id);
-        triggerNotif('success', "File rapor berhasil dihapus.");
-        if (activePreview?.id === report.id) {
-          setActivePreview(null);
+    setConfirmConfig({
+      isOpen: true,
+      title: "Konfirmasi Hapus Rapor",
+      message: `Apakah Anda yakin ingin menghapus rapor ${report.namaSiswa} semester ${report.semester}?\nTindakan ini permanen.`,
+      action: async () => {
+        try {
+          await onDelete(report.id);
+          triggerNotif('success', "File rapor berhasil dihapus.");
+          if (activePreview?.id === report.id) {
+            setActivePreview(null);
+          }
+        } catch (err: any) {
+          triggerNotif('error', err.message || "Gagal menghapus rapor.");
         }
-      } catch (err: any) {
-        triggerNotif('error', err.message || "Gagal menghapus rapor.");
+        setConfirmConfig({ ...confirmConfig, isOpen: false });
       }
-    }
+    });
   };
 
   // Filter students based on teacher search query
@@ -768,6 +787,14 @@ export default function ReportsManager({
         </div>
       )}
 
+      {/* 4. Global Confirm Dialog for this component */}
+      <ConfirmDialog
+        isOpen={confirmConfig.isOpen}
+        title={confirmConfig.title}
+        message={confirmConfig.message}
+        onConfirm={confirmConfig.action}
+        onCancel={() => setConfirmConfig({ ...confirmConfig, isOpen: false })}
+      />
     </div>
   );
 }

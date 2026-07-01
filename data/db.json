@@ -184,6 +184,42 @@
   ],
   "logs": [
     {
+      "id": "log-1782895840175-abt64",
+      "timestamp": "2026-07-01T08:50:40.175Z",
+      "userId": "user-s-1",
+      "username": "0145239201",
+      "role": "siswa",
+      "action": "LOGIN",
+      "details": "Pengguna Ahmad Fauzi berhasil masuk ke sistem."
+    },
+    {
+      "id": "log-1782895836497-1y8cz",
+      "timestamp": "2026-07-01T08:50:36.497Z",
+      "userId": "user-t-1",
+      "username": "198503122010011003",
+      "role": "guru",
+      "action": "LOGIN",
+      "details": "Pengguna Budi Santoso, S.Pd. berhasil masuk ke sistem."
+    },
+    {
+      "id": "log-1782895831235-hby2m",
+      "timestamp": "2026-07-01T08:50:31.235Z",
+      "userId": "admin-1",
+      "username": "admin",
+      "role": "admin",
+      "action": "LOGIN",
+      "details": "Pengguna Admin Operator Utama berhasil masuk ke sistem."
+    },
+    {
+      "id": "log-1782892173444-wzte4",
+      "timestamp": "2026-07-01T07:49:33.444Z",
+      "userId": "admin-1",
+      "username": "admin",
+      "role": "admin",
+      "action": "LOGIN",
+      "details": "Pengguna Admin Operator Utama berhasil masuk ke sistem."
+    },
+    {
       "id": "log-initial",
       "timestamp": "2026-07-01T07:15:05.491Z",
       "userId": "system",

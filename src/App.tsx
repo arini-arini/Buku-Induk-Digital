@@ -170,12 +170,10 @@ export default function App() {
 
   // Handle logout
   const handleLogout = () => {
-    if (window.confirm("Apakah Anda yakin ingin keluar dari sistem?")) {
-      clearToken();
-      setUser(null);
-      setToken(null);
-      showNotification('success', "Anda telah berhasil keluar dari sistem.");
-    }
+    clearToken();
+    setUser(null);
+    setToken(null);
+    showNotification('success', "Anda telah berhasil keluar dari sistem.");
   };
 
   // SINKRONISASI MANAJEMEN SISWA (ADMIN)

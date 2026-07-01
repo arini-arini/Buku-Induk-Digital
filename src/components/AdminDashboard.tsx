@@ -26,6 +26,7 @@ import * as XLSX from "xlsx";
 import { Student, SystemStats } from "../types";
 import ExcelImportHelper from "./ExcelImportHelper";
 import CropModal from "./CropModal";
+import { ConfirmDialog } from "./ConfirmDialog";
 
 interface AdminDashboardProps {
   stats: SystemStats;
@@ -90,9 +91,21 @@ export default function AdminDashboard({
   const [tahunAjaran, setTahunAjaran] = useState<string>("2026/2027");
   const [statusSiswa, setStatusSiswa] = useState<'Aktif' | 'Lulus' | 'Pindah' | 'Keluar'>("Aktif");
 
-  // Notifications
+  // Notifications & Confirmations
   const [loading, setLoading] = useState<boolean>(false);
   const [notif, setNotif] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
+  
+  const [confirmConfig, setConfirmConfig] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    action: () => void;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    action: () => {}
+  });
 
   const classesList = ["1-A", "1-B", "2-A", "2-B", "3-A", "3-B", "4-A", "4-B", "5-A", "5-B", "6-A", "6-B"];
 
@@ -219,27 +232,39 @@ export default function AdminDashboard({
   };
 
   const handleDelete = async (s: Student) => {
-    if (window.confirm(`Hapus siswa ${s.namaLengkap} dari Buku Induk?\nTindakan ini juga akan menghapus akun masuk dan seluruh file rapornya!`)) {
-      try {
-        await onDeleteStudent(s.id);
-        triggerNotif('success', `Berhasil menghapus siswa ${s.namaLengkap}.`);
-        onRefreshStats();
-        onRefreshStudents(search, selectedClass, 1);
-      } catch (err: any) {
-        triggerNotif('error', err.message || "Gagal menghapus siswa.");
+    setConfirmConfig({
+      isOpen: true,
+      title: "Konfirmasi Hapus Siswa",
+      message: `Hapus siswa ${s.namaLengkap} dari Buku Induk?\nTindakan ini juga akan menghapus akun masuk dan seluruh file rapornya!`,
+      action: async () => {
+        try {
+          await onDeleteStudent(s.id);
+          triggerNotif('success', `Berhasil menghapus siswa ${s.namaLengkap}.`);
+          onRefreshStats();
+          onRefreshStudents(search, selectedClass, 1);
+        } catch (err: any) {
+          triggerNotif('error', err.message || "Gagal menghapus siswa.");
+        }
+        setConfirmConfig({ ...confirmConfig, isOpen: false });
       }
-    }
+    });
   };
 
   const handleResetPassword = async (s: Student) => {
-    if (window.confirm(`Konfirmasi reset password akun siswa ${s.namaLengkap}?\nKredensial login akan dikembalikan ke standar bawaan: NISN + '123' (Contoh: ${s.nisn}123)`)) {
-      try {
-        const msg = await onResetPassword(s.id);
-        triggerNotif('success', msg);
-      } catch (err: any) {
-        triggerNotif('error', err.message || "Gagal mereset password siswa.");
+    setConfirmConfig({
+      isOpen: true,
+      title: "Konfirmasi Reset Password",
+      message: `Konfirmasi reset password akun siswa ${s.namaLengkap}?\nKredensial login akan dikembalikan ke standar bawaan: NISN + '123' (Contoh: ${s.nisn}123)`,
+      action: async () => {
+        try {
+          const msg = await onResetPassword(s.id);
+          triggerNotif('success', msg);
+        } catch (err: any) {
+          triggerNotif('error', err.message || "Gagal mereset password siswa.");
+        }
+        setConfirmConfig({ ...confirmConfig, isOpen: false });
       }
-    }
+    });
   };
 
   const handleBulkImportComplete = async (importedStudents: any[]) => {
@@ -1079,6 +1104,14 @@ export default function AdminDashboard({
         />
       )}
 
+      {/* 8. Global Confirm Dialog for this component */}
+      <ConfirmDialog
+        isOpen={confirmConfig.isOpen}
+        title={confirmConfig.title}
+        message={confirmConfig.message}
+        onConfirm={confirmConfig.action}
+        onCancel={() => setConfirmConfig({ ...confirmConfig, isOpen: false })}
+      />
     </div>
   );
 }

@@ -54,7 +54,7 @@ export default function Login({ onLogin, isDark }: LoginProps) {
     setError("");
 
     try {
-      await onLogin(username, password);
+      await onLogin(username.trim(), password);
     } catch (err: any) {
       setError(err.message || "Nama pengguna atau kata sandi Anda salah.");
     } finally {
@@ -201,11 +201,6 @@ export default function Login({ onLogin, isDark }: LoginProps) {
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
-              </div>
-
-              {/* Keep Logged in and security memo */}
-              <div className="text-[10px] text-slate-400 leading-relaxed bg-slate-100 dark:bg-slate-800/40 p-3 rounded-2xl border dark:border-slate-800">
-                • <strong>Perlindungan Ganda (Anti-Bruteforce):</strong> Akun akan terkunci sementara jika mendeteksi kegagalan masuk berulang kali. Sesi masuk Anda akan kedaluwarsa otomatis setelah 4 jam tidak ada aktivitas.
               </div>
 
               {/* Submit Trigger */}

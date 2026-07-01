@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { UserCheck, Plus, Pencil, Trash2, Key, Search, User, Award, CheckCircle, AlertCircle, X, RefreshCw } from "lucide-react";
 import { Teacher } from "../types";
+import { ConfirmDialog } from "./ConfirmDialog";
 
 interface TeacherManagerProps {
   teachers: Teacher[];
@@ -24,6 +25,18 @@ export default function TeacherManager({
   const [editingTeacher, setEditingTeacher] = useState<Teacher | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [notif, setNotif] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
+
+  const [confirmConfig, setConfirmConfig] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    action: () => void;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    action: () => {}
+  });
 
   // Form states
   const [nip, setNip] = useState<string>("");
@@ -83,25 +96,37 @@ export default function TeacherManager({
   };
 
   const handleDelete = async (t: Teacher) => {
-    if (window.confirm(`Apakah Anda yakin ingin menghapus guru ${t.nama}?\nSemua akun terkait akan ikut terhapus.`)) {
-      try {
-        await onDelete(t.id);
-        triggerNotif('success', `Berhasil menghapus guru ${t.nama}.`);
-      } catch (err: any) {
-        triggerNotif('error', err.message || "Gagal menghapus guru.");
+    setConfirmConfig({
+      isOpen: true,
+      title: "Konfirmasi Hapus Guru",
+      message: `Apakah Anda yakin ingin menghapus guru ${t.nama}?\nSemua akun terkait akan ikut terhapus.`,
+      action: async () => {
+        try {
+          await onDelete(t.id);
+          triggerNotif('success', `Berhasil menghapus guru ${t.nama}.`);
+        } catch (err: any) {
+          triggerNotif('error', err.message || "Gagal menghapus guru.");
+        }
+        setConfirmConfig({ ...confirmConfig, isOpen: false });
       }
-    }
+    });
   };
 
   const handleReset = async (t: Teacher) => {
-    if (window.confirm(`Konfirmasi reset kata sandi untuk guru ${t.nama}?\nKata sandi akan dikembalikan ke standar bawaan: NIP123`)) {
-      try {
-        const msg = await onResetPassword(t.id);
-        triggerNotif('success', msg);
-      } catch (err: any) {
-        triggerNotif('error', err.message || "Gagal mereset kata sandi.");
+    setConfirmConfig({
+      isOpen: true,
+      title: "Konfirmasi Reset Password",
+      message: `Konfirmasi reset kata sandi untuk guru ${t.nama}?\nKata sandi akan dikembalikan ke standar bawaan: NIP123`,
+      action: async () => {
+        try {
+          const msg = await onResetPassword(t.id);
+          triggerNotif('success', msg);
+        } catch (err: any) {
+          triggerNotif('error', err.message || "Gagal mereset kata sandi.");
+        }
+        setConfirmConfig({ ...confirmConfig, isOpen: false });
       }
-    }
+    });
   };
 
   return (
@@ -346,6 +371,14 @@ export default function TeacherManager({
           </form>
         </div>
       )}
+
+      <ConfirmDialog
+        isOpen={confirmConfig.isOpen}
+        title={confirmConfig.title}
+        message={confirmConfig.message}
+        onConfirm={confirmConfig.action}
+        onCancel={() => setConfirmConfig({ ...confirmConfig, isOpen: false })}
+      />
     </div>
   );
 }
